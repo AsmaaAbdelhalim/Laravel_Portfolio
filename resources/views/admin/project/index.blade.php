@@ -20,7 +20,6 @@
                     <th> Category </th>
                     <th> Image </th>
                     <th> Images </th>
-                    <th> views </th>
                     <th> Created By </th>
                     <th> Updated By </th>
                     <th> Manage </th>
@@ -43,7 +42,6 @@
                         <img src="{{ Storage::url( $path .'/'.$image->image) }}" alt="{{ $image->name }}" class="table-image">
                         @endforeach
                     </td>
-                    <td> {{ $project->views }} <i class="uil uil-eye"></i></td>
                     <td> {{ $project->creator ? $project->creator->first_name : 'N/A' }}
                         , At {{ $project->created_at->format('Y-m-d H:i:s') }}
                     </td>

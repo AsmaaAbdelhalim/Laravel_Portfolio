@@ -25,9 +25,6 @@ A feature-rich portfolio and admin dashboard built with Laravel. This project al
 - **Project Details Modal (Public Side)**: On the user-facing site, clicking a project opens a modal window displaying detailed information, images, and links for that project. This allows visitors to explore project details without leaving the main portfolio page, enhancing the browsing experience.
 
 ### Planned Features
-- **Notifications**:
-  - Admins receive notifications when a new contact message is received.
-  - Admins are notified when another admin performs CRUD actions on projects.
 - **Project View Counter**:
   - Each project tracks the number of views by guests (not logged-in users).
 
@@ -104,13 +101,6 @@ MAIL_FROM_NAME="Your Name"
   - Multiple portfolios are supported, each with its own projects and categories.
   - AJAX pagination allows users to browse projects smoothly.
   - On the public site, visitors can click on a project to view its details and images in a modal window, without leaving the main page.
-
-## Planned Feature Details
-
-- **Notifications:**
-  - Real-time or dashboard notifications for admins about new contact messages and CRUD actions by other admins.
-- **Project View Counter:**
-  - Each project will display a view count, incremented for each guest (not logged-in user) visit.
 
 ## Contribution
 

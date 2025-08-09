@@ -74,24 +74,6 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
-        
-        <!-- Notification Bell -->
-        <div class="notification-dropdown">
-            <div class="notification-bell" id="notificationBell">
-                <i class="uil uil-bell"></i>
-                <span class="notification-count" id="notificationCount" style="display: none;">0</span>
-            </div>
-            <div class="notification-content" id="notificationContent">
-                <div class="notification-header">
-                    <h6>Notifications</h6>
-                    <a href="{{ route('admin.notifications.index') }}" class="view-all">View All</a>
-                </div>
-                <div class="notification-list" id="notificationList">
-                    <!-- Notifications will be loaded here -->
-                </div>
-            </div>
-        </div>
-        
         <div class="user-dropdown">
         <div class="user-info">
             @if(Auth::user()->avatar)
@@ -125,69 +107,6 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('admin/script.js') }}"></script>
-
-<script>
-// Notification functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const notificationBell = document.getElementById('notificationBell');
-    const notificationContent = document.getElementById('notificationContent');
-    const notificationCount = document.getElementById('notificationCount');
-    const notificationList = document.getElementById('notificationList');
-
-    // Toggle notification dropdown
-    notificationBell.addEventListener('click', function(e) {
-        e.stopPropagation();
-        notificationContent.classList.toggle('show');
-        loadNotifications();
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!notificationBell.contains(e.target) && !notificationContent.contains(e.target)) {
-            notificationContent.classList.remove('show');
-        }
-    });
-
-    // Load notification count
-    function loadNotificationCount() {
-        fetch('/notifications/count')
-        .then(response => response.json())
-        .then(data => {
-            if (data.count > 0) {
-                notificationCount.textContent = data.count;
-                notificationCount.style.display = 'inline';
-            } else {
-                notificationCount.style.display = 'none';
-            }
-        });
-    }
-
-    // Load notifications
-    function loadNotifications() {
-        fetch('/notifications/unread')
-        .then(response => response.json())
-        .then(data => {
-            if (data.notifications.length > 0) {
-                notificationList.innerHTML = data.notifications.map(notification => `
-                    <div class="notification-item" data-id="${notification.id}">
-                        <div class="notification-title">${notification.title}</div>
-                        <div class="notification-message">${notification.message}</div>
-                        <div class="notification-time">${notification.created_at}</div>
-                    </div>
-                `).join('');
-            } else {
-                notificationList.innerHTML = '<div class="no-notifications">No new notifications</div>';
-            }
-        });
-    }
-
-    // Load initial count
-    loadNotificationCount();
-
-    // Refresh count every 30 seconds
-    setInterval(loadNotificationCount, 30000);
-});
-</script>
 
 </body>
 </html>

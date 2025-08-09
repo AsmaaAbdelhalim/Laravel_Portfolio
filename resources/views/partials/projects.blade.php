@@ -1,7 +1,3 @@
-<div>
-    <h2>Debug: Projects Count: {{ $projects->count() }}</h2>
-</div>
-
 <div class="row">
     @forelse($projects as $project)
         <div class="col-md-6 col-lg-4 project" data-category-id="{{ $project->category_id }}">
@@ -11,7 +7,6 @@
                     <div class="text-holder">
                         <h6 class="title">{{ $project->name }}</h6>
                         <p class="subtitle">{{ \Illuminate\Support\Str::limit($project->description, 50) }}</p>
-                        {{ $project->views }} <i class="uil uil-eye"></i>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,13 @@
             <tr><td><strong>Email:</strong></td> <td> {{ $about->email }}</td></tr>
             <tr><td><strong>Phone:</strong></td> <td> {{ $about->phone }}</td></tr>
             <tr><td><strong>Birth Date:</strong></td> <td> {{ $about->birth_date }}</td></tr>
-            <tr><td><strong>Avatar:</strong></td> <td> <img src="{{ Storage::url( $pathabout['avatar'] .'/'.$about->avatar) }}" alt="Avatar" class="avatar"></td></tr>
+            <tr><td><strong>Avatar:</strong></td> <td> 
+                @if($about->avatar)
+                <img src="{{ Storage::url( $pathabout['avatar'] .'/'.$about->avatar) }}" alt="Avatar" class="avatar">
+                @else
+                <img src="{{ Storage::url('default_avatar.png') }}" alt="Default Avatar" class="avatar">
+                @endif
+            </td></tr>
             <tr><td><strong>City:</strong></td> <td> {{ $about->city }}</td></tr>
             <tr><td><strong>Country:</strong></td> <td> {{ $about->country }}</td></tr>
             <tr><td><strong>Address:</strong></td> <td> {{ $about->address }}</td></tr>

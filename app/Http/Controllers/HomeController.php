@@ -63,23 +63,23 @@ class HomeController extends Controller
     }
 
     // Count views for all projects on home page load
-    $allProjects = Project::all();
+    //$allProjects = Project::all();
     
     // Get the session array for viewed projects
-    $viewedProjects = session()->get('viewed_home_projects', []); 
+    //$viewedProjects = session()->get('viewed_home_projects', []); 
     
     // Optional: limit size to avoid memory bloat
-    $viewedProjects = array_slice($viewedProjects, -100); 
+    //$viewedProjects = array_slice($viewedProjects, -100); 
     
-    foreach ($allProjects as $project) { 
-        if (!in_array($project->id, $viewedProjects)) { 
-            $project->increment('views'); 
-            $viewedProjects[] = $project->id; 
-        }
-    }
+    //foreach ($allProjects as $project) { 
+    //    if (!in_array($project->id, $viewedProjects)) { 
+    //        $project->increment('views'); 
+    //        $viewedProjects[] = $project->id; 
+    //    }
+    //}
     
     // Save updated list back to session
-    session(['viewed_home_projects' => $viewedProjects]);
+    //session(['viewed_home_projects' => $viewedProjects]);
 
     $path = app(\App\Services\ProjectService::class)->getMediaPath('image');
     $pathabout = [

@@ -33,8 +33,8 @@
                     <li class="nav-item"><a href="{{ route('home') }}#resume" class="nav-link">Resume</a></li>
                 </ul>
                 <ul class="navbar-nav brand">
-                    @if($about->avatar && Storage::exists($pathabout['avatar'].'/'.$about->avatar))
-                    <img src="{{ Storage::url( $pathabout['avatar'].'/'.$about->avatar) }}" class="brand-img">
+                    @if($about->avatar)
+                    <img src="{{ Storage::url( $pathabout['avatar'] .'/'.$about->avatar) }}" class="brand-img">
                     @else
                     <img src="{{ Storage::url('default_avatar.png') }}" class="brand-img">
                     @endif
@@ -81,18 +81,18 @@
             csrfToken: "{{ csrf_token() }}"
         };
     </script>
-    <script>
-        // Add this script to your home page or a common JavaScript file
-        document.querySelectorAll('a[href^="{{ route('home') }}#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
 
-                const targetId = this.getAttribute('href').substring(this.getAttribute('href').indexOf('#')); // Get the target section ID
-                // Use window.location.href to go to the home page, then use the hash to scroll.
-                window.location.href = "{{ route('home') }}" + targetId;
+<script>
+    document.querySelectorAll('a[href^="{{ route('home') }}#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
 
-            });
-        });
+        const targetId = this.getAttribute('href').substring(this.getAttribute('href').indexOf('#')); // Get the target section ID
+        // Use window.location.href to go to the home page, then use the hash to scroll.
+        window.location.href = "{{ route('home') }}" + targetId;
+
+    });
+});
     </script>
 </body>
 </html>

@@ -21,7 +21,6 @@
                               <th> Subject </th>
                               <th> Message </th>
                               <th> Time </th>
-                              <th> Action </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -34,22 +33,6 @@
                                 <td>{{ $contact->subject }}</td>
                                 <td>{{ $contact-> message}}</td>
                                 <td>{{ $contact->created_at }}</td>
-                                <td>
-    <form action="" method="POST" style="display:inline;">
-        @csrf
-        <button type="submit" class="btn btn-primary">Reply</button>
-    </form>
-    @if (!$contact->reply)
-    <form action="" method="POST">
-        @csrf
-        <textarea name="reply" rows="5" class="form-control" required></textarea>
-        <button class="btn btn-primary mt-2">Send Reply</button>
-    </form>
-@else
-    <p><strong>Reply Sent:</strong> {{ $contact->reply }}</p>
-@endif
-
-</td>
                             </tr>
                             @endforeach
                             </tbody>

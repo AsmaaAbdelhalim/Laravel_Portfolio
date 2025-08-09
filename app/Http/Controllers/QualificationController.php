@@ -32,7 +32,7 @@ class QualificationController extends Controller
     public function store(StoreQualificationRequest $request)
     {
         Qualification::create($request->validated());
-        return to_route('admin.qualification.edu')->with('message','New Qualification Added');
+        return to_route('admin.qualification')->with('message','New Qualification Added');
     }
 
     /**
