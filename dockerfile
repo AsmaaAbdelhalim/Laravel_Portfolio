@@ -18,11 +18,6 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Clear old config and cache, then rebuild
-RUN php artisan config:clear \
-    && php artisan cache:clear \
-    && php artisan config:cache
-
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
