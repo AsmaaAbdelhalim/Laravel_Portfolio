@@ -21,7 +21,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       
-
+        $aboutService = App(AboutService::class);
+        $about = About::first();
+        $pathabout = [
+            'avatar' => $aboutService->getMediaPath('avatar'),
+            'image' => $aboutService->getMediaPath('image'),
+            'header_image' => $aboutService->getMediaPath('header_image'),
+            'video' => $aboutService->getMediaPath('video'),
+            'cv' => $aboutService->getMediaPath('cv'),
+        ];
+        view()->share('about', $about);
+        view()->share('pathabout', $pathabout);
     }
 }
