@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\About;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class AboutService
 {
@@ -95,5 +97,53 @@ class AboutService
     public function getMediaPath(string $type): ?string
     {
         return self::MEDIA_CONFIG[$type]['path'] ?? null;
+    }
+
+    /**
+     * Get the about data safely with error handling
+     */
+    public function getAboutData(): ?About
+    {
+        try {
+            // Check if the table exists first
+            if (!Schema::hasTable('abouts')) {
+                Log::warning('Abouts table does not exist yet');
+                return null;
+            }
+            
+            return About::first();
+        } catch (\Exception $e) {
+            // Log the error but don't break the application
+            Log::warning('Failed to retrieve about data: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Get the pathabout array safely
+     */
+    public function getPathAbout(): array
+    {
+        return [
+            'avatar' => $this->getMediaPath('avatar'),
+            'image' => $this->getMediaPath('image'),
+            'header_image' => $this->getMediaPath('header_image'),
+            'video' => $this->getMediaPath('video'),
+            'cv' => $this->getMediaPath('cv'),
+        ];
+    }
+
+    /**
+     * Get all about data and paths in one call
+     */
+    public function getAboutWithPaths(): array
+    {
+        $about = $this->getAboutData();
+        $pathabout = $this->getPathAbout();
+        
+        return [
+            'about' => $about,
+            'pathabout' => $pathabout
+        ];
     }
 }

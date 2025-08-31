@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Professional portfolio of {{ $about->first_name }} {{ $about->last_name }}">
-    <meta name="author" content="{{ $about->first_name }} {{ $about->last_name }}">
-    <title>{{ $about->first_name }} {{ $about->last_name }} | Portfolio</title>
+    <meta name="description" content="Professional portfolio of {{ $about->first_name ?? 'Portfolio' }} {{ $about->last_name ?? '' }}">
+    <meta name="author" content="{{ $about->first_name ?? 'Portfolio' }} {{ $about->last_name ?? '' }}">
+    <title>{{ $about->first_name ?? 'Portfolio' }} {{ $about->last_name ?? '' }} | Portfolio</title>
 
     <link rel="stylesheet" href="{{ asset('assets/vendors/themify-icons/css/themify-icons.css') }}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -33,14 +33,14 @@
                     <li class="nav-item"><a href="{{ route('home') }}#resume" class="nav-link">Resume</a></li>
                 </ul>
                 <ul class="navbar-nav brand">
-                    @if($about->avatar)
+                    @if($about && $about->avatar)
                     <img src="{{ Storage::url( $pathabout['avatar'] .'/'.$about->avatar) }}" class="brand-img">
                     @else
-                    <img src="{{ Storage::url('default_avatar.png') }}" class="brand-img">
+                    <img src="{{ asset('assets/imgs/avatar.jpg') }}" class="brand-img">
                     @endif
                     <li class="brand-txt">
-                        <h5 class="brand-title">{{ $about->first_name }} {{ $about->last_name }}</h5>
-                        <div class="brand-subtitle">{{ $about->job }}</div>
+                        <h5 class="brand-title">{{ $about->first_name ?? 'Portfolio' }} {{ $about->last_name ?? '' }}</h5>
+                        <div class="brand-subtitle">{{ $about->job ?? 'Professional' }}</div>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
