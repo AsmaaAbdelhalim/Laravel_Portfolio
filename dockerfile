@@ -1,7 +1,7 @@
 # Use official PHP image with Apache
 FROM php:8.2-apache
 
-# Install system dependencies including PostgreSQL
+# Install system dependencies including PostgreSQL and MySQL
 RUN apt-get update && apt-get install -y \
     git unzip libzip-dev libpng-dev libonig-dev libxml2-dev zip curl libpq-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
@@ -19,7 +19,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Copy project files
 COPY . .
 
-# Install PHP dependencies
+# Install PHP dependencies (optimize for production)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
 # Set Apache document root to Laravel public folder
@@ -27,17 +27,18 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 
 # Allow .htaccess overrides for Laravel
 RUN echo '<Directory /var/www/html/public>\n\
+    Options Indexes FollowSymLinks\n\
     AllowOverride All\n\
     Require all granted\n\
 </Directory>' > /etc/apache2/conf-available/laravel.conf \
     && a2enconf laravel
 
-# Set permissions for Laravel
+# Set correct permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+    && chmod -R 775 storage bootstrap/cache public
 
-# Expose the port Render assigns dynamically
-EXPOSE 8080
+# Expose port 80 for Render (not 8080)
+EXPOSE 80
 
 # Start Apache
 CMD ["apache2-foreground"]
